@@ -1,7 +1,3 @@
-# Sample workflow for building and deploying a Nuxt site to GitHub Pages
-#
-# To get started with Nuxt see: https://nuxtjs.org/docs/get-started/installation
-#
 name: Deploy Nuxt site to Pages
 
 on:
@@ -72,6 +68,8 @@ jobs:
         run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
       - name: Static HTML export with Nuxt
         run: ${{ steps.detect-package-manager.outputs.manager }} run generate
+      - name: Create .nojekyll file
+        run: echo "" > ./dist/.nojekyll  # Creates an empty .nojekyll file
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
         with:
