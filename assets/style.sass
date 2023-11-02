@@ -1,0 +1,248 @@
+@import url('https://fonts.googleapis.com/css2?family=Mallanna&display=swap')
+
+body, html
+  color: white
+  padding: 0
+  margin: 0
+  width: 100vw
+  overflow-y: scroll
+  height: 100vh
+  background-color: #262727
+  font-family: 'Mallanna', sans-serif 
+
+*
+  &::-webkit-scrollbar
+    display: none
+
+$panel-width: 20vw
+$panel-margin: 15px
+
+.datepicker-container
+  width: 100%
+  display: flex
+  justify-content: center
+  align-items: center
+  flex-direction: column
+  padding-bottom: 20px
+  .range-buttons
+    width: calc(80% + 12.5px)
+    display: flex
+    justify-content: center
+    align-items: center
+    flex-direction: row
+    height: 40px
+    padding-top: 5px
+    div
+      width: 50%
+      height: 100%
+      &:nth-of-type(1)
+        padding-right: 5px
+      div
+        width: 100%
+        height: 100%
+        button
+          cursor: pointer
+          min-height: 100%
+          color: #fff
+          background-color: #6c266d16
+          border: #ca94cb61 2px solid 
+          border-radius: 4px
+          width: 100%
+  .datepicker
+    width: calc(80% + 12.5px)
+    label
+      padding-left: 5px
+  .dp__main
+    width: 100%
+  .dp__arrow_bottom
+    background-color: #893883 !important
+  .dp-menu
+    background-color: #893883 !important
+    border: #ca94cb61 2px solid !important
+  .dp__range_start 
+    background-color: #30242f !important
+  .dp__range_end
+    background-color: #30242f !important
+  
+.dp-input
+  background-color: #6c266d16 !important
+  border: #ca94cb61 2px solid !important
+
+#graph
+  width: 80%
+  margin-bottom: 30px
+  transition: height 0.2s ease-in-out
+.chart
+  height: 100% !important
+  width: 100% !important
+
+.marker-popup
+  box-shadow: none !important
+  .mapboxgl-popup-close-button
+    filter: invert(1)
+  .mapboxgl-popup-content
+    background-color: transparent
+    backdrop-filter: blur(20px)
+    border: #ca94cb61 2px solid
+    border-radius: 5px
+  .mapboxgl-popup-tip
+    display: none
+
+.main
+  margin-left: 210px
+  width: calc(100% - 210px)
+  display: flex
+  justify-content: center
+  position: absolute
+  z-index: 5
+  overflow: hidden
+  .main-content
+    .main-content-hide
+      display: flex
+      justify-content: flex-end
+      align-items: center
+      min-height: 50px
+      width: 100%
+      cursor: pointer
+      svg
+        position: absolute
+        height: 35px
+        width: 50px
+      .min
+        transition: opacity 0.4s ease-in-out
+        opacity: 1
+      .max
+        transition: opacity 0.4s ease-in-out
+        opacity: 0
+    display: flex
+    flex-direction: column
+    margin-top: $panel-margin
+    width: 80%
+    max-width: 775px
+    background-color: #be66b513
+    backdrop-filter: blur(15px)
+    border-radius: 20px
+    padding: 20px 20px 20px 20px
+    overflow: hidden
+    padding-bottom: 20px
+    margin-bottom: 20px
+    transition: height 0.5s ease-in-out
+
+.background
+  position: fixed
+  width: 100vw
+  height: 100vh
+  overflow: hidden
+  filter: blur(0px)
+  background: rgb(158,54,175)
+  background: radial-gradient(circle, rgba(158,54,175,1) 0%, rgba(28,20,25,1) 100%)
+
+.data-display
+  width: 100%
+  max-width: 775px
+  display: flex
+  justify-content: center
+  flex-direction: column
+  align-items: center
+  background-color: #6c266d16
+  border: #ca94cb61 2px solid
+  border-radius: 15px
+  margin-top: 10px
+  overflow: hidden
+  transition: height 0.1s ease-in-out
+  &:nth-of-type(1)
+    margin-top: 0px
+
+.section-split
+  $margin: 15px
+  height: 2.5px
+  width: calc(100% - (2 * $margin))
+  margin-left: $margin
+  border-radius: 5px
+  background-color: #ca94cbac
+
+.map-container
+  height: 100vh
+
+.control-panel
+  display: inline-block
+  position: fixed
+  width: $panel-width
+  height: calc(100vh - (2 * $panel-margin))
+  max-width: 210px
+  min-width: 188px
+  background-color: #be66b513
+  backdrop-filter: blur(5px)
+  margin: $panel-margin 0 $panel-margin $panel-margin
+  border-radius: 15px
+  z-index: 20
+  overflow-x: visible
+  overflow-y: scroll
+  &::-webkit-scrollbar
+    display: none
+  -ms-overflow-style: none
+  scrollbar-width: none 
+  .logo
+    width: 100%
+    height: 150px
+    display: flex
+    justify-content: center
+    align-items: center
+    img
+      height: auto
+      width: 80%
+      filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(0%) hue-rotate(32deg) brightness(108%) contrast(102%)
+  .control-returns
+    .button-disabled
+      cursor: wait !important
+      opacity: 0.1
+      .return-select
+        pointer-events: none
+    .return-select-container
+      cursor: pointer
+      margin: 8px 12.5px 8px 12.5px
+      border-radius: 10px
+      background-color: #be66b53a
+      backdrop-filter: blur(5px)
+      &:nth-of-type(1)
+        margin-top: 5px
+      .return-select
+        $height: 40px
+        height: $height
+        line-height: $height
+        font-size: 15px
+        padding-left: 10px
+    .return-select-container-active
+      background-color: #e436d870
+  .control-stations
+    .station-select-goto
+      display: inline
+      z-index: 10
+      position: absolute
+      right: 0
+      top: 0
+      width: 15%
+      height: 40px
+      padding-right: 2px
+      svg
+        width: 20px
+        height: 40px
+    .station-select-container
+      margin: 8px 12.5px 8px 12.5px
+      position: relative
+      border-radius: 10px
+      cursor: pointer
+      backdrop-filter: blur(5px)
+      .station-select
+        $height: 40px
+        height: $height
+        line-height: $height
+        padding-left: 10px
+        .station-select-name
+          display: inline
+          width: 80%
+          height: 40px
+        
+        
+.dp__outer_menu_wrap .dp--menu-wrapper
+  position: absolute
