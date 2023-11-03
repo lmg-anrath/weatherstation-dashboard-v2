@@ -5,18 +5,8 @@ export const in_stations = (stations_selected: number[], station_id: number) => 
 };
 
 export const add_station = (stations_selected: number[], stations_selected_markers: Map<string, mapboxgl.Marker>, map: mapboxgl.Map, station_name: string, station_id: number, fetch_results: Map<number, ApiData>) => {
-  const fetch_done = useFetchDone();
   const hidden = fetch_results.get(station_id);
-  if (hidden != undefined) {
-    if (hidden.temperature.length > 0) {
-      fetch_done.value = false;
-      hidden.hidden = false;
-    }
-  }
-  fetch_results.set(station_id, hidden as ApiData)
-  setTimeout(() => {
-    fetch_done.value = true;
-  }, 100);
+  if (hidden) hidden.hidden = false;
   if (stations_selected.includes(station_id)) return;
   stations_selected.push(station_id);
   stations_selected_markers.get(station_name)?.addTo(map);

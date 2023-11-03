@@ -47,7 +47,7 @@ onMounted(() => {
     const marker = new mapboxgl.Marker({ color: `rgb(${stations_all[i].color})` })
       .setLngLat([stations_all[i].position.lon, stations_all[i].position.lat])
       .setPopup(popup)
-      .addTo(map.value);
+      .addTo(map.value)
     stations_selected.value.push(i);
     stations_selected_markers.value.set(stations_all[i].name, marker);
     stations_selected_popups.value.set(i, popup);
@@ -62,7 +62,7 @@ const button_selects = ['Tag', 'Woche'];
       <img src="/lmg.png" alt="">
     </div>
     <div class="control-returns">
-      <div :class="`return-select-container${(!fetch_done && !in_returns(returns_selected, data)) ? ' button-disabled' : ''} ${(in_returns(returns_selected, data)) ? 'return-select-container-active' : ''}`" v-for="data in returns_all">
+      <div :class="`return-select-container${(!fetch_done && !in_returns(returns_selected, data)) ? ' button-disabled' : ''} ${(in_returns(returns_selected, data)) ? 'return-select-container-active' : ''}`" v-for="data, index in returns_all">
         <div class="return-select" @click="(in_returns(returns_selected, data)) ? remove_return(returns_selected, data) : add_return(returns_selected, data);">
           {{ translate_returns[data] }}
         </div>

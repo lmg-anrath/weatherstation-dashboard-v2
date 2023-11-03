@@ -3,7 +3,7 @@ export const useDataDisplayShow = () => {
 };
 
 export const useTimeStart = () => {
-  return useState('time_start', () => (Math.floor(Date.now() / 1000)) - 700 * 60);
+  return useState('time_start', () => Math.floor(Date.now() / 1000) - 86000);
 };
 
 export const useTimeEnd = () => {

@@ -5,49 +5,27 @@ mapboxgl.accessToken = 'pk.eyJ1IjoibWF4Ym94IiwiYSI6ImNpcWpubHVrZDAwZGZod2t4eGxxa
 
 const returns_selected = useReturnsSelected();
 const stations_selected = useStationsSelected();
-const stations_fetched = useStationsFetched();
-const fetch_results = useFetchReslts();
 const fetch_done = useFetchDone();
 const data_display_show = useDataDisplayShow();
 const time_start = useTimeStart();
 const time_end = useTimeEnd();
-const stations_selected_popups = useStationsSelectedPopups();
-
-const fetch_data = async (start: number, end: number) => {
-  fetch_done.value = false;
-  await apidata(start, end, format_returns(returns_selected.value), stations_selected.value, fetch_results)
-  for (let [station_id, data] of fetch_results.value.entries()) {
-    const popup = stations_selected_popups.value.get(station_id);
-    if (!popup) continue;
-    const last_send = data.temperature[data.temperature.length - 1]?.time;
-    let is_in_range = true;
-    if (last_send) {
-      is_in_range = in_past_hour(Math.round((new Date(last_send)).getTime()));
-      if (!in_past_hour(time_end.value * 1000)) {
-        continue;
-      }
-    } else {
-      is_in_range = false;
-    }
-    let popup_text = `<p style="color: rgb(${stations_fetched.value[station_id].color});">[Id: ${station_id}]</p>Temperatur: ${data.temperature[data.temperature.length - 1]?.value}\u00B0C<br/>Luftfeuchtigkeit: ${data.humidity[data.humidity.length - 1]?.value}%<br/>Partikel [2.5]: ${data.air_particle_pm25[data.air_particle_pm25.length - 1]?.value}<br/>Partikel [10]: ${data.air_particle_pm10[data.air_particle_pm10.length - 1]?.value}<br/>Luftdruck: ${data.air_pressure[data.air_pressure.length - 1]?.value}hPa`;
-    if (popup_text.includes('undefined') || !is_in_range) {
-      popup_text = `<p style="color: rgb(${stations_fetched.value[station_id].color});">[Id: ${station_id}]</p>Derzeit außer Betrieb`;
-    }
-    popup.setHTML(popup_text);
-  }
-  fetch_done.value = true;
-};
 
 watch([time_start, time_end], () => {
   fetch_data(time_start.value, time_end.value);
 });
 
-onMounted(async () => {
-  setTimeout(async () => {
-    const now = Math.floor(Date.now() / 1000);
-    fetch_data(now - times['Tag'], now);
-  }, 1000);
-});
+let stations_old_length = 0;
+watch(() => stations_selected.value, (stations_new: number[], stations_old: number[]) => {
+    if (stations_old_length > stations_new.length) return;
+    stations_old_length = stations_new.length;
+    if (stations_new.length === 0) return;
+    fetch_data(time_start.value, time_end.value);
+  },
+  {
+    deep: true,
+    flush: 'pre'
+  }
+);
 </script>
 
 <template>

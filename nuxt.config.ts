@@ -3,7 +3,7 @@ export default defineNuxtConfig({
   devtools: { enabled: false },
   ssr: false,
   app: {
-    baseURL: '/weatherstation-dashboard-v2/'
+    baseURL: '/weatherstation-dashboard-v2/',
     buildAssetsDir: 'assets',
   },
 })
