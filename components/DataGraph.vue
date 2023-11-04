@@ -30,7 +30,7 @@ for (let i = 0; i < stations_selected.value.length; i++) {
   const station_result = fetch_results.value.get(station_id);
   if (!station_result) continue;
   const odata = station_result[props.values];
-  const tdata = (odata as DataSet[]).map((item: any) => {
+  let tdata = (odata as DataSet[]).map((item: any) => {
     const time = new Date(item.time);
     time.setSeconds(0, 0);
     return {

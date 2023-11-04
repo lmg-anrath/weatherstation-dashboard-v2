@@ -59,7 +59,7 @@ const button_selects = ['Tag', 'Woche'];
 <template>
   <div class="control-panel">
     <div class="logo">
-      <img src="/lmg.png" alt="">
+      <img width="0" height="0" src="/lmg.png" alt="">
     </div>
     <div class="control-returns">
       <div :class="`return-select-container${(!fetch_done && !in_returns(returns_selected, data)) ? ' button-disabled' : ''} ${(in_returns(returns_selected, data)) ? 'return-select-container-active' : ''}`" v-for="data, index in returns_all">
