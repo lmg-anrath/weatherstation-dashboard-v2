@@ -104,11 +104,11 @@ export const fetch_data = async (start: number, end: number) => {
     const airPressure = data.air_pressure[data.air_pressure.length - 1]?.value;
 
     let values = [
-      temperature !== undefined ? `Temperatur: ${temperature}\u00B0C` : undefined,
+      temperature !== undefined ? `Temperatur: ${temperature} \u00B0C` : undefined,
       humidity !== undefined ? `Luftfeuchtigkeit: ${humidity}%` : undefined,
       airParticlePM25 !== undefined ? `Partikel [2.5]: ${airParticlePM25}` : undefined,
       airParticlePM10 !== undefined ? `Partikel [10]: ${airParticlePM10}` : undefined,
-      airPressure !== undefined ? `Luftdruck: ${airPressure}hPa` : undefined
+      airPressure !== undefined ? `Luftdruck: ${airPressure} hPa` : undefined
     ];
 
     values = values.filter(value => value !== undefined);
