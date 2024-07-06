@@ -95,9 +95,28 @@ export const fetch_data = async (start: number, end: number) => {
       popup.setHTML(`<p style="color: rgb(${stations_fetched.value[station_id].color});">[Id: ${station_id}]</p>Derzeit außer Betrieb`);
       continue;
     }
-    let popup_text = `<p style="color: rgb(${stations_fetched.value[station_id].color});">[Id: ${station_id}]</p>Temperatur: ${data.temperature[data.temperature.length - 1]?.value}\u00B0C<br/>Luftfeuchtigkeit: ${data.humidity[data.humidity.length - 1]?.value}%<br/>Partikel [2.5]: ${data.air_particle_pm25[data.air_particle_pm25.length - 1]?.value}<br/>Partikel [10]: ${data.air_particle_pm10[data.air_particle_pm10.length - 1]?.value}<br/>Luftdruck: ${data.air_pressure[data.air_pressure.length - 1]?.value}hPa`;
-    if (popup_text.includes('undefined') || !is_in_range) {
-      popup_text = `<p style="color: rgb(${stations_fetched.value[station_id].color});">[Id: ${station_id}]</p>Derzeit außer Betrieb`;
+    let popup_text = `<p style="color: rgb(${stations_fetched.value[station_id].color});">[Id: ${station_id}]</p>`;
+
+    const temperature = data.temperature[data.temperature.length - 1]?.value;
+    const humidity = data.humidity[data.humidity.length - 1]?.value;
+    const airParticlePM25 = data.air_particle_pm25[data.air_particle_pm25.length - 1]?.value;
+    const airParticlePM10 = data.air_particle_pm10[data.air_particle_pm10.length - 1]?.value;
+    const airPressure = data.air_pressure[data.air_pressure.length - 1]?.value;
+
+    let values = [
+      temperature !== undefined ? `Temperatur: ${temperature}\u00B0C` : undefined,
+      humidity !== undefined ? `Luftfeuchtigkeit: ${humidity}%` : undefined,
+      airParticlePM25 !== undefined ? `Partikel [2.5]: ${airParticlePM25}` : undefined,
+      airParticlePM10 !== undefined ? `Partikel [10]: ${airParticlePM10}` : undefined,
+      airPressure !== undefined ? `Luftdruck: ${airPressure}hPa` : undefined
+    ];
+
+    values = values.filter(value => value !== undefined);
+
+    if (values.length === 0 || !is_in_range) {
+      popup_text += "Derzeit außer Betrieb";
+    } else {
+      popup_text += values.join("<br/>");
     }
     popup.setHTML(popup_text);
   }
