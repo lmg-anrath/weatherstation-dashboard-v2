@@ -92,10 +92,10 @@ export const fetch_data = async (start: number, end: number) => {
       }
     } else {
       is_in_range = false;
-      popup.setHTML(`<p style="color: rgb(${stations_fetched.value[station_id].color});">[Id: ${station_id}]</p>Derzeit außer Betrieb`);
+      popup.setHTML(`<p style="color: rgb(${stations_fetched.value[station_id].color});">${stations_fetched.value[station_id].name} [Id: ${station_id}]</p>Derzeit außer Betrieb`);
       continue;
     }
-    let popup_text = `<p style="color: rgb(${stations_fetched.value[station_id].color});">[Id: ${station_id}]</p>`;
+    let popup_text = `<p style="color: rgb(${stations_fetched.value[station_id].color});">${stations_fetched.value[station_id].name} [Id: ${station_id}]</p>`;
 
     const temperature = data.temperature[data.temperature.length - 1]?.value;
     const humidity = data.humidity[data.humidity.length - 1]?.value;
